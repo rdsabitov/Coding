@@ -118,6 +118,25 @@ var reverseString = function(s) {
 //Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted 
 //in non-decreasing order
 
+/**
+ * @param {number[]} nums
+ * @return {number[]}  
+ */
 var sortedSquares = function(nums) { 
-    
+    let n = nums.length
+    let result =[]
+    let right = nums.length-1
+    let left = 0
+    for (let i = n-1; i>=0; i--) { 
+        let sqrt
+        if(Math.abs(nums[left]) < Math.abs(nums[right])) { 
+            sqrt = nums[right]
+            right--
+        } else { 
+            sqrt = nums[left]
+            left++
+        }
+        result[i] = sqrt*sqrt
+    }
+    return result
 }
