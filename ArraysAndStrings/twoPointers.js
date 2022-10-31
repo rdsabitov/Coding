@@ -16,7 +16,7 @@ var checkIfPalindrome = function(s) {
         left ++
         right --
     }
-    return true
+    return truea
 }
 
 /**
@@ -78,8 +78,8 @@ var combine = function(arr1, arr2) {
 }
 
 /**
- * @param {string} s 
- * @param {string} t 
+ * @param {string} 
+ * @param {string} 
  * @return {boolean}
  */
 
