@@ -16,7 +16,7 @@ var checkIfPalindrome = function(s) {
         left ++
         right --
     }
-    return truea
+    return true
 }
 
 /**

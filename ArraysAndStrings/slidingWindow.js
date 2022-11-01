@@ -114,3 +114,30 @@ var findMaxAverage = function(nums,k) {
     }
     return maxSum/k;
 }
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} k 
+ * @return {number}
+ */
+
+//Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's
+
+var longestOnes = function(nums, k) { 
+    let start = 0;
+    let length =nums.length;
+    let ans = 0, count=0
+    for(let i=0; i<length;i++) { 
+        if(!nums[i]) 
+            ++count
+        
+        while(count>k) { 
+            if(!nums[start]) 
+                --count
+                start++
+            
+        }
+        ans = Math.max(ans, i-start+1)
+    }
+    return ans}
