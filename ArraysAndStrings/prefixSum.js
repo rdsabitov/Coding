@@ -109,7 +109,7 @@ var minStartValue = function(nums) {
     // startValue = 0, therefore the initial current step-by-step total is 0, 
     // thus we set "total" and "minVal" be 0. 
    let minVal = 0, total=0;
-
+    
     // Iterate over the array and get the minimum step-by-step total.
    for (let i =0; i<nums.length; ++i) { 
     total += nums[i]
@@ -121,3 +121,21 @@ var minStartValue = function(nums) {
     // which is just the minimum startValue we want.
    return -minVal+1
 }
+
+
+//Additional problems
+//Given nums=[5,2,3,1,6] the prefix sum would be
+
+// var prefixesSum = function(nums) { 
+
+//     if(nums.length===0) {
+//         return nums
+//     }
+//     for (let i=1; i<nums.length;i++) { 
+//         nums[i] = nums[i-1] + nums[i]
+//     }
+//     return nums
+// }
+
+// prefixesSum()
+// console.log(prefixesSum[5,2,3,1,6]);
