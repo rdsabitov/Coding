@@ -141,3 +141,25 @@ var longestOnes = function(nums, k) {
         ans = Math.max(ans, i-start+1)
     }
     return ans}
+
+
+//You are given a 0-indexed integer array nums, where nums[i] represents the score of the ith student. You are also given an integer k.
+//Pick the scores of any k students from the array so that the difference between the highest and the lowest of the k scores is minimized.
+//Return the minimum possible difference.
+
+/**
+ * 
+ * @param {number[]} nums 
+ * @param {number} k 
+ * @return {number}
+ */
+
+var minimumDifference=function(nums, k) { 
+   nums.sort((a,b)=> a-b)
+
+   let min = nums[0], max=nums[k-1],diff=max-min
+   for (let i=k; i<nums.length;i++) { 
+       diff = Math.min(diff, nums[i]-nums[i-k+1])
+   }
+   return diff
+}

@@ -140,3 +140,34 @@ var sortedSquares = function(nums) {
     }
     return result
 }
+
+
+
+
+
+//Given a string s, reverse only all the vowels in the string and return it
+//The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseVowels = function(s) { 
+    let right = s.length-1, left = 0;
+    let res = s.split('')
+    let newArr = new Set(['a', 'e', 'i', 'o', 'u','A', 'E', 'I', 'O', 'U'])
+    while(left<right) { 
+        if(!newArr.has(res[left])) { 
+            left++
+        } else if(!newArr.has(res[right])) { 
+            right --
+        } else { 
+            [res[left], res[right]] = [res[right], res[left]]
+            right--
+            left++
+        }
+        
+    }
+    return res.join('')
+    }
