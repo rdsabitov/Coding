@@ -349,6 +349,12 @@ var maxNumberOfBalloons = function(text) {
 }
 
 
+
+//Given an array of strings strs, group the anagrams together.
+
+//For example, given strs = ["eat","tea","tan","ate","nat","bat"], 
+//return [["bat"],["nat","tan"],["ate","eat","tea"]].
+
 /**
  * @param {string []} strs
  * @return {string[][]}
@@ -372,6 +378,9 @@ var groupAnagrams = function(strs) {
 }
 
 
+
+//Given an integer array cards, find the length of the shortest subarray that 
+//contains at least one duplicate. If the array has no duplicates, return -1.
 
 /**
  * @param {number[]} cards 
@@ -413,3 +422,146 @@ var minimumCardPickupV2 = function(cards) {
     return ans === Infinity?-1:ans
 };
 
+
+
+//Given an array of integers nums, find the maximum value of nums[i] + nums[j], 
+//where nums[i] and nums[j] have the same digit sum (the sum of their individual digits). 
+//Return -1 if there is no pair of numbers with the same digit sum.
+
+/**
+ * 
+ * @param {number []} nums 
+ * @return {number}
+ */
+
+var maximumSum = function(nums) {
+    let getDigitSum = num => { 
+        let digitSum = 0;
+        while(num>0) { 
+            digitSum += num %10;
+            num = Math.floor(num/10)
+        }
+        return digitSum
+    }
+    let dic = new Map()
+    let ans = -1;
+    for (const num of nums) { 
+        let digitSum = getDigitSum(num)
+        if(dic.has(digitSum)) { 
+            ans = Math.max(ans, num + dic.get(digitSum))
+        }
+        dic.set(digitSum, Math.max(dic.get(digitSum) || 0, num))
+    }
+    return ans;
+}
+
+//Given an n x n matrix grid, return the number of pairs (R, C) 
+//where R is a row and C is a column, and R and C are equal if we consider them as 1D arrays.
+
+var equalPairs = function(grid) { 
+    let convertToKey = arr => { 
+        let key = '';
+        for (const num of arr) { 
+            key +=num + ',';
+        }
+        return key;
+    }
+    let dic = new Map();
+    for (const arr of grid) { 
+        let key = convertToKey(arr);
+        dic.set(key,(dic.get(key) || 0), +1)
+    }
+    let dic2 = new Map();
+    for (let col=0; col<grid[0].length; col++) { 
+        let currentCol = []
+        for (let row=0; row<grid.length; row++) { 
+            currentCol.push(grid[row][col])
+        }
+        let key= convertToKey(currentCol);
+        dic2.set(key, (dic2.get(key) || 0) + 1)
+    }
+    let ans = 0;
+    for (const [key,val] of dic) { 
+        ans +=val * dic2.get(key) || 0
+    }
+    return ans;
+}
+
+
+//Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+//Each letter in magazine can only be used once in ransomNote.
+
+/**
+ * @param {string} ransomNote
+ * @param {string} magazine 
+ * @return {boolean}  
+ */
+var canConstruct = function(ransomNote, magazine) { 
+  const map={}
+
+  for (let letter of magazine) {
+       if(!map[letter]) { 
+           map[letter] = 0
+       }
+       map[letter]++
+  }
+  for (let letter of ransomNote) {
+      if(!map[letter]) { 
+        return false
+      } 
+      map[letter]--
+  }
+  return true
+}
+
+
+
+//You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. 
+//Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.
+//Letters are case sensitive, so "a" is considered a different type of stone from "A".
+
+/**
+ * @param {string} jewels
+ * @param {string} stones 
+ * @return {number}
+ */
+var numJewelsInStones = function(jewels, stones) { 
+    let count=0
+    let mySet = new Set();
+    for (let char of jewels) { 
+        if(!mySet.has(char)) {
+            mySet.add(char)
+        }
+    }
+    for (let i =0; i<stones.length; i++) { 
+        let ch = stones[i]
+            if(mySet.has(ch)) { 
+                count ++
+        } 
+    }
+    return count
+    
+}
+
+
+//Given a string s, find the length of the longest substring without repeating characters.
+/**
+ * 
+ * @param {string} s 
+ * @return {number}
+ */
+
+var lengthOfLongestSubstring = function(s) { 
+  var sLen = s.length, maxLen=0, maxStr ='', tmpStr, postIndex, i;
+  for (i=0; i<sLen; i++) { 
+      tmpStr = s[i]
+      postIndex = maxStr.indexOf(tmpStr)
+      if(postIndex>-1) { 
+          maxStr=maxStr.substring(postIndex+1)
+      }
+      maxStr += tmpStr;
+      maxLen=Math.max(maxLen, maxStr.length)
+  }
+  return maxLen
+    
+}   
