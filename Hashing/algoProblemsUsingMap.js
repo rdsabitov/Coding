@@ -308,3 +308,108 @@ var largestUniqueNumber = function(nums) {
     }
    return result
 }
+
+
+//Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
+
+//You can use each character in text at most once. Return the maximum number of instances that can be formed.
+
+/**
+ * @param {string} text
+ * @return {number}
+ */
+
+var maxNumberOfBalloons = function(text) { 
+  const BALLOON = { 
+      b: 1,
+      a: 1,
+      l: 2,
+      o: 2,
+      n: 1
+  }
+
+  let newMap = new Map()
+  for (let i =0; i<text.length; i++) { 
+      if(newMap.has(text[i])) { 
+          newMap.set(text[i], newMap.get(text[i])+1)
+      } else { 
+          newMap.set(text[i], 1)
+      }
+  }
+  let output = Infinity;
+  let arr = Object.keys(BALLOON)
+  for (let i =0; i<arr.length; i++) { 
+      let char = arr[i]
+      if(!newMap.has(char)) 
+      return 0
+
+      output = Math.min(Math.floor(newMap.get(char)/(BALLOON[char])), output)
+  }
+  return output
+}
+
+
+/**
+ * @param {string []} strs
+ * @return {string[][]}
+ */
+
+var groupAnagrams = function(strs) { 
+  let groups = new Map();
+  for (const s of strs) { 
+      let key = s.split('').sort().join('')
+      if(!groups.has(key)) { 
+          groups.set(key,[])
+      }
+      groups.get(key).push(s)
+  }
+
+  let ans = []
+  for (const group of groups.values()) { 
+    ans.push(group)
+  }
+  return ans;
+}
+
+
+
+/**
+ * @param {number[]} cards 
+ * @return {number}
+ */
+//O(n)
+var minimumCardPickup = function(cards) { 
+    let newMap = new Map();
+    for (let i =0;i<cards.length; i++) { 
+        if(!newMap.has(cards[i])) { 
+            newMap.set(cards[i], [])
+        } else { 
+            newMap.get(cards[i].push(i))
+        }
+    }
+    let ans = Infinity
+    for (const [key,value] of newMap) { 
+        for (let i =0; i<value.length-1; i++) { 
+            ans = Math.min(ans,value[i+1] -value[i] +1);
+        }
+    }
+    return ans === Infinity ? -1: ans;
+}
+
+
+/**
+ * @param {number[]} cards
+ * @return {number}
+ */
+var minimumCardPickupV2 = function(cards) { 
+    let dic = new Map()
+    let ans = Infinity
+    for (let i = 0; i<cards.length; i++) { 
+        if(dic.has(cards[i])) { 
+            ans = Math.min(ans, i - dic.get(cards[i]) + 1)
+        }
+        dic.set(cards[i], i)
+    }
+    return ans === Infinity?-1:ans
+};
+
